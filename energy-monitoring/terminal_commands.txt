@@ -1,0 +1,16 @@
+---OPEN TERMINAL IN PROJECT DIRECTORY! (C:\Users\Start\PycharmProjects\OwnIdeas\energy-monitoring)---
+IN TERMINAL:
+1. docker-compose -f docker-compose-all.yml up -d
+2. docker exec -it spark-master spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.1 /app/app/spark_streaming.py
+
+
+3. (?) docker exec -it spark-master spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.1  --conf spark.sql.streaming.forceDeleteTempCheckpointLocation=true /app/app/spark_streaming.py
+
+
+---TEST CONSUMER FOR 10 SECONDS---
+docker exec -it kafka kafka-console-consumer --bootstrap-server localhost:9092 --topic energy_usage --from-beginning --timeout-ms 10000
+
+--CLEAR CHECKPOINTS (IF NEEDED)--
+docker exec -it spark-master rm -rf /app/output/checkpoint
+docker exec -it spark-master rm -rf /app/output/alerts
+docker exec -it spark-master rm -rf /app/output/energy_aggregations

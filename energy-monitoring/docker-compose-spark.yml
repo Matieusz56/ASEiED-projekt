@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  spark:
+    image: bitnami/spark:3.5.1
+    container_name: spark-master
+    networks:
+      - energy-monitoring_default  # Ta sama sieć co Kafka
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/app
+    working_dir: /app
+    environment:
+      - SPARK_MODE=master
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092  # Użyj nazwy serwisu zamiast localhost

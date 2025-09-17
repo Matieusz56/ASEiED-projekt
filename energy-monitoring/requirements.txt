@@ -1,0 +1,5 @@
+kafka-python==2.0.2
+pyspark==3.5.1
+pandas==2.2.2
+kaggle
+python-dateutil==2.8.2
